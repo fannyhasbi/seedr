@@ -25,7 +25,9 @@ func SeedComment(db *sql.DB, comments []Comment) {
 
 		_, err := db.Exec(query, v.ID, v.Body, t, "2e846a2d-dfef-42e9-a52c-b638786eecfb", "18371a10-29f9-4fb6-bab8-71e313890ea0")
 		if err != nil {
-			log.Println("[ERR]", err)
+			log.Println("[Comment][ERR]", err)
 		}
 	}
+
+	log.Println("Comment done")
 }
