@@ -16,20 +16,30 @@ func init() {
 
 func main() {
 	var comments []worker.Comment
-	db := config.InitCockroachDB()
-	defer db.Close()
+	var categories []worker.Category
+
+	commentDB := config.InitCommentDB()
+	categoryDB := config.InitCategoryDB()
+	defer commentDB.Close()
+	defer categoryDB.Close()
 
 	file, err := ioutil.ReadFile("comments.json")
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	err = json.Unmarshal(file, &comments)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	worker.SeedComment(db, comments)
+	fileCategory, err := ioutil.ReadFile("categories.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = json.Unmarshal(fileCategory, &categories)
+
+	// worker.SeedComment(commentDB, comments)
+	worker.SeedCategory(categoryDB, categories)
 
 	log.Println("DONE")
 }

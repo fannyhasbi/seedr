@@ -5,4 +5,12 @@ CREATE TABLE IF NOT EXISTS comment (
   article_id UUID NOT NULL,
   author_id UUID NOT NULL,
   PRIMARY KEY (id)
-)
+);
+
+CREATE TABLE IF NOT EXISTS category (
+  id UUID,
+  name VARCHAR NOT NULL,
+  author_id UUID,
+  slug VARCHAR NOT NULL,
+  PRIMARY KEY (id)
+);
