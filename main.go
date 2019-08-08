@@ -17,11 +17,12 @@ func init() {
 func main() {
 	var comments []worker.Comment
 	var categories []worker.Category
+	var articles []worker.Article
 
 	commentDB := config.InitCommentDB()
-	categoryDB := config.InitCategoryDB()
+	articleDB := config.InitArticleDB()
 	defer commentDB.Close()
-	defer categoryDB.Close()
+	defer articleDB.Close()
 
 	file, err := ioutil.ReadFile("comments.json")
 	if err != nil {
@@ -37,9 +38,19 @@ func main() {
 		log.Fatal(err)
 	}
 	err = json.Unmarshal(fileCategory, &categories)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fileArticle, err := ioutil.ReadFile("articles.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = json.Unmarshal(fileArticle, &articles)
 
 	// worker.SeedComment(commentDB, comments)
-	worker.SeedCategory(categoryDB, categories)
+	// worker.SeedCategory(articleDB, categories)
+	worker.SeedArticle(articleDB, articles)
 
 	log.Println("DONE")
 }

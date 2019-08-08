@@ -12,8 +12,8 @@ var (
 )
 
 const (
-	commentDB  = "kumpalite_comment"
-	categoryDB = "kumpalite_article"
+	commentDB = "kumpalite_comment"
+	articleDB = "kumpalite_article"
 )
 
 // InitCommentDB init database connection
@@ -50,21 +50,21 @@ func InitCommentDB() *sql.DB {
 	return db
 }
 
-// InitCategoryDB init category db
-func InitCategoryDB() *sql.DB {
+// InitArticleDB init article db
+func InitArticleDB() *sql.DB {
 	connStr := fmt.Sprintf("postgresql://root@%s?sslmode=disable", databasePort)
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	_, err = db.Exec(`CREATE DATABASE IF NOT EXISTS ` + categoryDB)
+	_, err = db.Exec(`CREATE DATABASE IF NOT EXISTS ` + articleDB)
 	if err != nil {
 		log.Fatal(err)
 	}
 	db.Close()
 
-	connStr = fmt.Sprintf("postgresql://root@%s/%s?sslmode=disable", databasePort, categoryDB)
+	connStr = fmt.Sprintf("postgresql://root@%s/%s?sslmode=disable", databasePort, articleDB)
 	db, err = sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)

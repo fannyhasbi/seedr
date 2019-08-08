@@ -14,3 +14,24 @@ CREATE TABLE IF NOT EXISTS category (
   slug VARCHAR NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS article (
+    id UUID,
+    slug VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    body VARCHAR NOT NULL,
+    status VARCHAR,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    author_id UUID,
+    comments_count INT,
+    image_url VARCHAR,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS article_category (
+    id UUID,
+    category_id UUID,
+    article_id UUID,
+    PRIMARY KEY (id)
+);
